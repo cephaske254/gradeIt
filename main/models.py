@@ -8,6 +8,7 @@ class Profile(models.Model):
     bio = models.TextField(null=True)
     phone = models.IntegerField(unique=True, null=True)
     photo = models.ImageField(upload_to='profiles')
+    date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.username
@@ -39,5 +40,10 @@ class Profile(models.Model):
     def search_profile(cls, keywords):
         profiles = cls.objects.filter(Q(user__username__icontains=keywords)| Q(bio__icontains=keywords)).all()
         return profiles
-# class Article(models.Model):
-#     user
+class Article(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='articles')
+    title = models.CharField(max_length=200)
+    link = models.CharField(max_length=255)
+    description = models.TextField()
+    publish = models.BooleanField(default=True)
+    date = models.DateTimeField(auto_now_add=True)
