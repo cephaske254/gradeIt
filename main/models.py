@@ -11,7 +11,7 @@ class Profile(models.Model):
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.username
+        return self.user.username
 
     @classmethod
     def get_all_profiles(cls):
@@ -22,6 +22,7 @@ class Profile(models.Model):
         profile = cls(user=user, bio=bio, phone=phone, photo=photo)
         profile.save()
         return profile
+
     @classmethod
     def update_profile(cls, user, bio, phone, photo):
         profile = cls.get_profile(user)
@@ -40,6 +41,7 @@ class Profile(models.Model):
     def search_profile(cls, keywords):
         profiles = cls.objects.filter(Q(user__username__icontains=keywords)| Q(bio__icontains=keywords)).all()
         return profiles
+
 class Article(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='articles')
     title = models.CharField(max_length=200)
@@ -47,3 +49,26 @@ class Article(models.Model):
     description = models.TextField()
     publish = models.BooleanField(default=True)
     date = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.user.username
+
+    @classmethod
+    def get_all_articles(cls):
+        pass
+    
+    @classmethod
+    def save_article(cls, user, title, link, description, publish):
+        pass
+
+    @classmethod
+    def update_article(cls, user, title, link, description, publish):
+        pass
+
+    @classmethod
+    def get_article(cls, id):
+        pass
+
+    @classmethod
+    def search_articles(cls, keywords):
+        pass
