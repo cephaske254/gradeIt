@@ -40,3 +40,7 @@ class ProfileTest(TestCase):
     def test_search_profiles(self):
         profiles = Profile.search_profile(self.user.username)
         self.assertTrue(len(profiles)>0)
+
+class ArticleTest(TestCase):
+    def setUp(self):
+        self.test_user = ProfileTest.test_user
