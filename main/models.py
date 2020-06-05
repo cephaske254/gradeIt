@@ -51,24 +51,34 @@ class Article(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return self.user.username
+        return self.title
 
     @classmethod
     def get_all_articles(cls):
-        pass
-    
-    @classmethod
-    def save_article(cls, user, title, link, description, publish):
-        pass
+        return cls.objects.exclude(publish=False).all()
 
     @classmethod
-    def update_article(cls, user, title, link, description, publish):
-        pass
+    def save_article(cls, user, title, link, description, publish):
+        article = cls(user=user, title=title, link=link, description=description, publish=publish)
+        article.save()
+        return article
+
+    @classmethod
+    def update_article(cls,id, title, link, description, publish):
+        article = cls.get_article(id)
+        article.title = title or article.title
+        article.link = title or article.link
+        article.description = description or article.description
+        article.publish = publish or article.publish
+        article.save()
+        return article
 
     @classmethod
     def get_article(cls, id):
-        pass
+        article = cls.objects.get(pk=id)
+        return article
 
     @classmethod
     def search_articles(cls, keywords):
-        pass
+        articles = cls.objects.filter(Q(title__icontains=keywords) | Q(description__icontains=keywords) | Q(link__icontains=keywords), publish=True)
+        return articles

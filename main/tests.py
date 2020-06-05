@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import Profile, Article
 
 
 # Create your tests here.
@@ -43,4 +43,39 @@ class ProfileTest(TestCase):
 
 class ArticleTest(TestCase):
     def setUp(self):
-        self.test_user = ProfileTest.test_user
+
+        self.test_user = User(username='cephas',password='admin121',email='cephaske254@gmail.co,',first_name='cephas', last_name='too')
+        self.test_user.save()
+        # get saved_user
+        self.user = User.objects.filter(username=self.test_user.username).first()
+        # create article
+        self.test_article = Article.save_article(self.user,'title','http:localhost','description',True)
+        self.article = Article.objects.filter(user=self.test_user.id).first()
+
+    def tearDown(self):
+        self.article.delete()
+        self.user.delete()
+
+    def test_save_article(self):
+        self.assertTrue(len(Article.objects.all()) >0)
+
+    
+    def test_get_article(self):
+        article = Article.get_article(self.article.id)
+        self.assertEqual(article.link, self.test_article.link)
+        self.assertEqual(article, self.test_article)
+
+    def test_update_article(self):
+        updated_article = Article.update_article(self.article.id, 'titleeee','http:google.com','description', False)
+        self.assertIsNotNone(updated_article)
+        self.assertNotEqual(str(self.article), str(updated_article))
+    
+    def test_get_all_articles(self):
+        articles = Article.get_all_articles()
+        self.assertIsNotNone(articles)
+    
+    def test_search_articles(self):
+        articles = Article.search_articles(self.article.title)
+        self.assertIsNotNone(articles)
+        
+
