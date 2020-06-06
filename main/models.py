@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Q
+import statistics
 # Create your models here.
 
 class Profile(models.Model):
@@ -82,3 +83,46 @@ class Article(models.Model):
     def search_articles(cls, keywords):
         articles = cls.objects.filter(Q(title__icontains=keywords) | Q(description__icontains=keywords) | Q(link__icontains=keywords), publish=True)
         return articles
+
+class Rating(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='rating')
+    design = models.PositiveIntegerField(default=0)
+    usability = models.PositiveIntegerField(default=0 )
+    content = models.PositiveIntegerField(default=0)
+    date = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def average(self):
+        return round(statistics.mean([self.content,self.usability,self.design]), 1)
+        
+
+    @classmethod
+    def save_rating(cls, user, article, design, usability, content):
+        rating = Rating(user=user, article=article, design=design, usability=usability, content=content)
+        rating.save()
+        return rating
+
+    @classmethod
+    def get_article_ratings(cls, article):
+        return cls.objects.filter(article=article.id).all()
+
+    @classmethod
+    def get_ratings_by_user(cls, user):
+        ratings = cls.objects.filter(user=user.id).all()
+        return ratings
+
+    @classmethod
+    def get_rating(cls, id):
+        return cls.objects.get(pk=id)
+
+    @classmethod
+    def update_rating(cls, id, design, usability, content):
+        rating = cls.get_rating(id)
+        rating.design = design or rating.design
+        rating.usability = usability or rating.usability
+        rating.content = content or rating.content
+        rating.save()
+        return rating
+
+

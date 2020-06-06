@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
-from .models import Profile, Article
+from .models import Profile, Article, Rating
+import statistics
 
 
 # Create your tests here.
@@ -77,5 +78,42 @@ class ArticleTest(TestCase):
     def test_search_articles(self):
         articles = Article.search_articles(self.article.title)
         self.assertIsNotNone(articles)
+
+class RatingTest(TestCase):
+    def setUp(self):
+        self.test_user = User(username='cephas',password='admin121',email='cephaske254@gmail.co,',first_name='cephas', last_name='too')
+        self.test_user.save()
+        # get saved_user
+        self.user = User.objects.filter(username=self.test_user.username).first()
+        # create article
+        self.test_article = Article.save_article(self.user,'title','http:localhost','description',True)
+        # self.article = Article.objects.filter(user=self.test_user.id).first()
+        # create rating
+        self.test_rating = Rating.save_rating(self.user,self.test_article,2,6,9 )
+
+    def test_save_rating(self):
+        self.assertTrue(len(Rating.objects.all()) > 0)
+
+    def test_average(self):
+        numbers = [self.test_rating.usability, self.test_rating.design, self.test_rating.content]
+        self.assertEqual(self.test_rating.average, round(statistics.mean(numbers), 1) )
+        
+    def test_get_rating(self):
+        single_ratings = Rating.get_rating(self.test_rating.id)
+        self.assertIsNotNone(single_ratings)
+
+    def test_update_rating(self):
+        update_rating = Rating.update_rating(self.test_rating.id, 2,9,10)
+        self.assertIsNotNone(update_rating)
+        self.assertNotEqual(update_rating.average, self.test_rating.average)
+
+    def test_get_ratings_by_user(self):
+        ratings = Rating.get_ratings_by_user(self.test_user)
+        self.assertIsNotNone(ratings)
+
+    def test_get_article_ratings(self):
+        ratings = Rating.get_article_ratings(self.test_article)
+        self.assertTrue(len(ratings) > 0)
+
         
 
