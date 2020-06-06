@@ -125,4 +125,17 @@ class Rating(models.Model):
         rating.save()
         return rating
 
+class SavedArticle(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='saved_aricles')
+    article = models.ForeignKey(Article, on_delete=models.DO_NOTHING)
+    date = models.DateTimeField(auto_now_add=True)
+
+    @classmethod
+    def save_unsave_article(cls, user, article):
+        try:
+            cls.objects.filter(user=user.id, article=article.id).first().delete()
+            return 'Removed'
+        except:
+            cls(user=user, article=article).save()
+            return 'Saved'
 

@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
-from .models import Profile, Article, Rating
+from .models import Profile, Article, Rating, SavedArticle
 import statistics
 
 
@@ -115,5 +115,21 @@ class RatingTest(TestCase):
         ratings = Rating.get_article_ratings(self.test_article)
         self.assertTrue(len(ratings) > 0)
 
-        
+class TestSavedArticle(TestCase):
+    def setUp(self):
+        self.test_user = User(username='cephas',password='admin121',email='cephaske254@gmail.co,',first_name='cephas', last_name='too')
+        self.test_user.save()
+        # get saved_user
+        self.user = User.objects.filter(username=self.test_user.username).first()
+        # create article
+        self.test_article = Article.save_article(self.user,'title','http:localhost','description',True)
+
+    def test_save_article(self):
+        article = SavedArticle.save_unsave_article(self.user, self.test_article)
+        self.assertEqual(len(SavedArticle.objects.all()), 1)
+
+    def test_unsave_article(self):
+        article = SavedArticle.save_unsave_article(self.user, self.test_article)
+        article_again = SavedArticle.save_unsave_article(self.user, self.test_article)
+        self.assertEqual(len(SavedArticle.objects.all()), 0)
 
