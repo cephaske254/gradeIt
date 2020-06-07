@@ -1,0 +1,71 @@
+{% extends 'accounts/accounts_base.html' %}
+{% load countries %}
+{% get_countries as countries %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row justify-content-center login_bg">
+        <div class="col d-none d-md-flex vh-100 login_bg"></div>
+        <div class="col-md-6 col-sm-10 vh-100 back-darker d-flex flex-column" style="padding: 35px;">
+            <h2 class="">Welcome to GradeIt</h2>
+            <div class="welcome d-flex text-center">
+                <div class="font-weight-bold px-3">
+                    {% block welcome_message %}
+                    Setup your profile
+                    {% endblock %}
+                </div>
+                <div class="text px-3">
+                    {% block other_message %}
+                    One momment {{ request.user.username }} 😄
+                    {% endblock %}
+                </div>
+            </div>
+            <hr class="bg-dark">
+            <form class="form-horizontal acc_form" method="POST" enctype="multipart/form-data" style="padding:5px 20px;">
+                {{ update_user.non_field_errors }}
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="col">
+                        <input value="{{request.POST.first_name}}" type="text" name="{{update_user.first_name.name}}" id="id_{{update_user.first_name.name}}" class="text-input" placeholder="First Name" required>
+                        {{ update_user.first_name.errors }}
+                    </div>
+                    <div class="col">
+                        <input value="{{request.POST.last_name}}" type="text" name="{{update_user.last_name.name}}" id="id_{{update_user.last_name.name}}" class="text-input" placeholder="Last Name" required>
+                        {{ update_user.last_name.errors }}
+                    </div>
+                </div>
+
+
+                <div class="form-row">
+                    <div class="col">
+                        <input value="{{request.POST.email}}" type="email" name="{{update_user.email.name}}" id="id_{{update_user.email.name}}" class="text-input" placeholder="Email" required>
+                        {{ update_user.first_name.errors }}
+                    </div>
+                    <div class="col">
+                        <input value="{{request.POST.phone}}" type="text" name="{{user_profile.phone.name}}" id="id_{{user_profile.phone.name}}" class="text-input" placeholder="Phone Number" required>
+                        {{ user_profile.phone.errors }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <textarea value="{{request.POST.phone}}" name="{{user_profile.bio.name}}" id="id_{{user_profile.bio.name}}" class="text-input" placeholder="{{user_profile.bio.name}}" required></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="col">
+                        {{user_profile.photo}}
+                    </div>
+                    <div class="col">
+                        {{user_profile.country}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button class="text-input back-primary">
+                        <span class="font-weight-bold">UPDATE</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="col d-none d-md-flex"></div>
+    </div>
+</div>
+{% endblock %}

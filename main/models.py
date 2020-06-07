@@ -9,8 +9,8 @@ class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,related_name='profile')
     bio = models.TextField(null=True)
     phone = models.IntegerField(unique=True, null=True)
-    photo = models.ImageField(upload_to='profiles')
-    country = CountryField()
+    photo = models.ImageField(upload_to='profiles',null=False)
+    country = CountryField(blank_label='select country')
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
