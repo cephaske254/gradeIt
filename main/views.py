@@ -9,6 +9,11 @@ def home(request):
 
 def new_article(request):
     form = NewArticleForm()
+    if request.method == 'POST':
+        form = NewArticleForm(request.POST, request.FILES)
+        if form.is_valid():
+            print('VLAIIIIIID')
+
     context = {
         'title':'New Article | GradeIt',
         'form':form

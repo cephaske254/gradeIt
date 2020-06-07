@@ -1,0 +1,23 @@
+.text-input,select[name=country],input[type=file]  {
+    display: block;
+    height: 60px;
+    padding: 0 15px;
+    background: transparent;
+    border: 1px solid var(--color-dark);
+    transition: all 0.3s ease-in-out;
+    background: rgba(255, 255, 255, 0.061);
+    width: 100%;
+    color: white;
+}
+.acc_form .form-group,.acc_form .form-row {
+    font-family: "apercu",sans-serif;
+    font-size: 16px;
+    padding: 8px;
+}
+.article_form{
+    background: rgba(0, 0, 0, 0.9);
+    border-radius: 10px;
+}
+.back_body {
+    background: url('https://free4kwallpapers.com/uploads/originals/2015/09/08/abstract-black-minimalistic-red-waves-gradient-hd-wallpapers.jpg');
+}
