@@ -7,7 +7,12 @@
             <li class="nav-item">
                 <a href="/" class="nav-link">HOME</a>
             </li>
-        </ul>
+        {% if request.user.is_authenticated %}
+            <li class="nav-item">
+                <a href="{% url 'new_article' %}" class="nav-link">NEW</a>
+            </li>
+        {% endif %}
+    </ul>
     </div>
     <ul class="nav navbar-right">
         {% if not request.user.is_authenticated %}

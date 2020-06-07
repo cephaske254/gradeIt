@@ -50,6 +50,7 @@ class Article(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='articles')
     title = models.CharField(max_length=200)
     link = models.CharField(max_length=255)
+    image = models.ImageField(upload_to='articles')
     description = models.TextField()
     publish = models.BooleanField(default=True)
     date = models.DateTimeField(auto_now_add=True)

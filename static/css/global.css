@@ -24,6 +24,9 @@ body {
     background: rgb(41, 41, 41);
     color: rgba(255, 255, 255, 0.87);
     /* color: rgba(255, 255, 255, 0.87); */
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 *{
     box-sizing: border-box;
@@ -50,7 +53,9 @@ body {
 .outline-primary {
     border: 1px solid var(--color-primary) !important;
 }
-
+.min-vh-90 {
+    min-height: 90vh;
+}
 .navbar {
     background: rgb(29, 29, 29);
     font-family: 'Raleway' !important;
