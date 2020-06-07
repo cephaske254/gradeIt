@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row no-gutters justify-content-center align-items-center">
+        <div class="col-sm-8 col-md-6 col-lg-4 view p-2">
+            <div class="card w-100">
+                <div class="view-card">
+                    <img src="https://html.com/wp-content/uploads/flamingo-fallback.jpg" class="card-img-top">
+                    <div class="view-controls top-0 position-absolute d-flex w-100 py-2">
+                        <div class="col">
+                            <a href="#" class="btn rounded-40 outline-primary">
+                                <span class="small text-light">COLLECT
+                                    <i class="fas fa-sm fa-save"></i>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="btn rounded-40 back-primary"><span class="small">GRADE IT
+                                    <i class="fas fa-sm fa-star"></i>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="btn rounded-40 outline-primary"><span class="small text-light">VIEW IT
+                                    <i class="fas fa-sm fa-external-link-alt"></i>
+                                </span>
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="card-text bg-dark px-3 py-1">
+                    <p class="card-title text-uppercase m-0">TITLE HERE</p>
+                    <div class="card-subtitle px-3 py-1 d-flex">
+                        <p class="col small m-0">From Country</p>
+                        <p class="col small m-0">Date Posted</p>
+                        </p>
+                    </div>
+                    <hr class="m-1">
+                    <div class="card-foot d-flex align-items-center">
+                        <img src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/292329/5bbf5d845abed.jpg" width="32" class=" rounded-circle profile">
+                        <div class="profile-info px-3 small">
+                            BY <a href="#" class="card-link text-light">JOHN DOE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endblock %}

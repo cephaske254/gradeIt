@@ -53,6 +53,19 @@ class Article(models.Model):
     
     def __str__(self):
         return self.title
+    @property
+    def design_grade(self):
+        pass
+    @property
+    def usability_grade(self):
+        pass
+    @property
+    def content_grade(self):
+        pass
+    @property
+    def average_grade(self):
+        pass
+
 
     @classmethod
     def get_all_articles(cls):
