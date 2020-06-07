@@ -20,6 +20,7 @@ def register(request):
     return render(request,'accounts/register.html',context)
 
 @login_required
+@profile_required
 def finalize(request):
     current_user = request.user
     update_user = UpdateUserForm()
@@ -36,13 +37,13 @@ def finalize(request):
             user.email = email
             user.save()
         
+        user_profile = UserProfileForm(request.POST,request.FILES)
         if user_profile.is_valid():
-            user_profile = UserProfileForm(request.POST,request.FILES)
-            bio = user_profile.cleaned_data['bio']
-            phone = user_profile.cleaned_data['phone']
-            photo = request.FILES.get('photo', None)
-            Profile.update_profile(current_user,bio,phone,photo)
-
+            phone = user_profile.cleaned_data.get('phone')
+            bio = user_profile.cleaned_data.get('bio')
+            photo = request.FILES.get('photo')
+            print(phone)
+            Profile.save_profile(current_user,bio,phone,photo)
         return redirect('home')
 
 
@@ -50,5 +51,6 @@ def finalize(request):
     context = {
         'user_profile': user_profile,
         'update_user': update_user,
+        'user': current_user,
     }
     return render(request,'accounts/finalize.html',context)

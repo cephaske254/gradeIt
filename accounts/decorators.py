@@ -1,10 +1,10 @@
-from django.http import HttpResponseRedirect
-
+from django.shortcuts import redirect
+from main.models import Profile
 def profile_required(view_func):
     def _decorated(request, *args, **kwargs):
         #Check authorization
-        if not request.user.is_authenticated:
-            return view_func(request,*args, **kwargs)
-        else:
-            return HttpResponseRedirect('finalize/')
+        profile = Profile.get_profile(request.user)
+        if profile:
+            return redirect('home')
+        return view_func(request,*args, **kwargs)
     return _decorated 

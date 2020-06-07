@@ -27,6 +27,11 @@ class Profile(models.Model):
         return profile
 
     @classmethod
+    def get_profile(cls, user):
+        profile = cls.objects.filter(user=user.id).first()
+        return profile
+
+    @classmethod
     def update_profile(cls, user, bio, phone, photo):
         profile = cls.get_profile(user)
         profile.bio = bio or profile.bio
@@ -35,10 +40,6 @@ class Profile(models.Model):
         profile.save()
         return profile
 
-    @classmethod
-    def get_profile(cls, user):
-        profile = cls.objects.filter(user=user.id).first()
-        return profile
 
     @classmethod
     def search_profile(cls, keywords):

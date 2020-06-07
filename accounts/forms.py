@@ -9,4 +9,7 @@ class UpdateUserForm(forms.Form):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        exclude=[]
+        bio = forms.CharField(widget=forms.Textarea)
+
+        exclude=['user',]
+
