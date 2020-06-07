@@ -1,0 +1,53 @@
+{% load countries %}
+{% get_countries as countries %}
+{% for article in articles %}
+
+<div class="col-sm-8 col-md-6 col-lg-4 view p-2">
+    <div class="card w-100">
+        <div class="view-card">
+            <img src="https://html.com/wp-content/uploads/flamingo-fallback.jpg" class="card-img-top">
+            <div class="view-controls top-0 position-absolute d-flex w-100 py-2">
+                <div class="col">
+                    <a href="#" class="btn rounded-40 outline-primary">
+                        <span class="small text-light">COLLECT
+                            <i class="fas fa-sm fa-tag"></i>
+                        </span>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="#" class="btn rounded-40 back-primary"><span class="small">GRADE IT
+                            <i class="fas fa-sm fa-star"></i>
+                        </span>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="{{article.link}}" target="_blank" class="btn rounded-40 outline-primary"><span class="small text-light">VIEW SITE
+                            <i class="fas fa-sm fa-external-link-alt"></i>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-text bg-dark px-3 py-1">
+            <p class="card-title text-uppercase m-0">{{article.title}}</p>
+            <div class="card-subtitle px-3 py-1 d-flex">
+                <p class="col small m-0">From {{article.user.profile.first.country.name}}({{article.user.profile.first.country.code}})</p>
+                <p class="col small m-0">{{ article.date | date:'d M, Y' }}</p>
+                </p>
+            </div>
+            <hr class="m-1">
+            <div class="card-foot d-flex align-items-center">
+                <img src="{{ article.user.profile.first.photo.url }}" width="32" class=" rounded-circle profile">
+                <div class="profile-info px-3 small">
+                    BY <a href="{% url 'profile' article.user.username %}" class="card-link text-light text-uppercase">{{ article.user.first_name }} {{ article.user.last_name }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% empty %}
+<div class="col-sm-8 col-md-6 col-lg-4 view p-2">
+    <h2>OOPS! Nothing to show</h2>
+</div>
+{% endfor %}
+

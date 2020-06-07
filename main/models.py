@@ -76,8 +76,8 @@ class Article(models.Model):
         return cls.objects.exclude(publish=False).all()
 
     @classmethod
-    def save_article(cls, user, title, link, description, publish):
-        article = cls(user=user, title=title, link=link, description=description, publish=publish)
+    def save_article(cls, user, title, link, description,image, publish):
+        article = cls(user=user, title=title, link=link, description=description, image=image, publish=publish)
         article.save()
         return article
 
