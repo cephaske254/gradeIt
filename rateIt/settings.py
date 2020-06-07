@@ -16,12 +16,16 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+LOGOUT_REDIRECT_URL='home'
+LOGIN_REDIRECT_URL='home'
 
 # Application definition
 
 INSTALLED_APPS = [
     'rest_framework',
+    'django_countries',
     'rest_framework.authtoken',
+    'accounts.apps.AccountsConfig',
     'main.apps.MainConfig',
     'django.contrib.admin',
     'django.contrib.auth',

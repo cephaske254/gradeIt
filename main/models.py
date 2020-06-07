@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Q
 import statistics
+from django_countries.fields import CountryField
 # Create your models here.
 
 class Profile(models.Model):
@@ -9,6 +10,7 @@ class Profile(models.Model):
     bio = models.TextField(null=True)
     phone = models.IntegerField(unique=True, null=True)
     photo = models.ImageField(upload_to='profiles')
+    country = CountryField()
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

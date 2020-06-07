@@ -10,7 +10,9 @@
     src: url('../fonts/OpenSans-Regular.ttf');
     font-family: 'Open Sans';
 }
-
+*:focus {
+    outline: none;
+}
 :root {
     --color-primary: rgb(14, 251, 192);
     --color-darker: rgb(29, 29, 29);
@@ -23,7 +25,10 @@ body {
     color: rgba(255, 255, 255, 0.87);
     /* color: rgba(255, 255, 255, 0.87); */
 }
-
+*{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
 ::-webkit-scrollbar {
     display: none;
 }
@@ -34,6 +39,12 @@ body {
 
 .back-primary {
     background: var(--color-primary) !important;
+}
+.back-darker {
+    background: var(--color-darker) !important;
+}
+.back-dark {
+    background: var(--color-dark) !important;
 }
 
 .outline-primary {
@@ -84,6 +95,8 @@ body {
 .rounded-40 {
     border-radius: 40px !important;
 }
+
+/* TO BE REMOVED */
 .view .card {
     border-color: var(--color-dark);
 }

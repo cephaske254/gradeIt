@@ -1,0 +1,27 @@
+{% extends 'accounts/accounts_base.html' %}
+
+{% block welcome_message %}
+    Sign Up to continue
+{% endblock %}
+{% block other_message %}
+    Already a member? <a href="{% url 'login' %}" class="card-link color-primary">Sign In</a>
+{% endblock %}
+
+{% block form_items %}
+<div class="form-group">
+    <input value="{{request.POST.username}}" type="text" name="{{form.username.name}}" id="id_{{form.username.name}}" class="text-input" placeholder="Choose Username" required>
+    {{ form.username.errors }}
+</div>
+<div class="form-group">
+    <input type="password" name="{{form.password1.name}}" id="id_{{form.password1.name}}" class="text-input" placeholder="Enter password" required>
+    {{ form.password1.errors }}
+</div>
+<div class="form-group">
+    <input type="password" name="{{form.password2.name}}" id="id_{{form.password2.name}}" class="text-input" placeholder="Confirm password" required>
+    {{ form.password2.errors }}
+</div>
+<div class="form-group">
+    <button type="submit" class="text-input back-primary font-weight-bold">SIGNUP NOW</button>
+</div>
+
+{% endblock %}
