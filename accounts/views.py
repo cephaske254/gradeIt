@@ -40,9 +40,10 @@ def finalize(request):
         if user_profile.is_valid():
             phone = user_profile.cleaned_data.get('phone')
             bio = user_profile.cleaned_data.get('bio')
+            country = user_profile.cleaned_data.get('country')
             photo = request.FILES.get('photo')
             print(phone)
-            Profile.save_profile(current_user,bio,phone,photo)
+            Profile.save_profile(current_user,bio,phone,country, photo)
         return redirect('home')
 
 

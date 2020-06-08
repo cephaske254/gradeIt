@@ -14,7 +14,7 @@ class ProfileTest(TestCase):
         self.user = User.objects.filter(username=self.test_user.username).first()
         
         # create user profile
-        self.profile = Profile.save_profile(self.user, 'bio here', '0702149456', 'avatar.png')
+        self.profile = Profile.save_profile(self.user, 'bio here', '0702149456','KE','avatar.png')
         
 
     def tearDown(self):
@@ -50,7 +50,7 @@ class ArticleTest(TestCase):
         # get saved_user
         self.user = User.objects.filter(username=self.test_user.username).first()
         # create article
-        self.test_article = Article.save_article(self.user,'title','http:localhost','description',True)
+        self.test_article = Article.save_article(self.user,'title','http:localhost','description', 'image',True)
         self.article = Article.objects.filter(user=self.test_user.id).first()
 
     def tearDown(self):
@@ -86,7 +86,7 @@ class RatingTest(TestCase):
         # get saved_user
         self.user = User.objects.filter(username=self.test_user.username).first()
         # create article
-        self.test_article = Article.save_article(self.user,'title','http:localhost','description',True)
+        self.test_article = Article.save_article(self.user,'title','http:localhost','description','image',True)
         # self.article = Article.objects.filter(user=self.test_user.id).first()
         # create rating
         self.test_rating = Rating.save_rating(self.user,self.test_article,2,6,9 )
@@ -122,7 +122,7 @@ class TestSavedArticle(TestCase):
         # get saved_user
         self.user = User.objects.filter(username=self.test_user.username).first()
         # create article
-        self.test_article = Article.save_article(self.user,'title','http:localhost','description',True)
+        self.test_article = Article.save_article(self.user,'title','http:localhost','description','image',True)
 
     def test_save_article(self):
         article = SavedArticle.save_unsave_article(self.user, self.test_article)

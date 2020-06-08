@@ -1,6 +1,6 @@
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, HttpResponse, redirect, Http404
 from .forms import NewArticleForm, ArticleRatingForm
-from .models import Article, Rating
+from .models import Article, Rating, User
 # Create your views here.
 from accounts.decorators import profile_required
 from django.contrib.auth.decorators import login_required
@@ -61,5 +61,10 @@ def single_article(request, id):
 
 @profile_required
 def profile(request, username):
-    context={}
-    return HttpResponse("hello")
+    user = User.objects.filter(username=username).first()
+    if user is None: raise Http404()
+    context={
+        'title':f'{user.username.title()} | GradeIt',
+        'user':user
+        }
+    return render(request,"profile.html", context)

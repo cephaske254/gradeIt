@@ -1,0 +1,39 @@
+{% for article in user.articles.all %}
+<div class="col-sm-8 col-md-6 col-lg-4 view p-2">
+    <div class="card w-100">
+        <div class="view-card" id="id_{{article.id}}">
+            <img src="{{article.image.url}}" class="card-img-top">
+        </div>
+        <div class="card-text bg-dark px-3 py-1">
+            <div class="card-subtitle px-3 py-1 d-flex">
+                <p class="card-title text-uppercase m-0">{{article.title}}</p>
+                <p class="col small m-0">{{ article.date | date:'d M, Y' }}</p>
+
+            </div>
+            <div class="card-foot d-flex align-items-center">
+                <div class="ratings d-flex align-items-center">
+                    <span class="badge bg-danger mr-1">
+                        {{article.usability_grade}} <br>
+                        <span class="small">Usability</span>
+                    </span>
+                    <span class="badge bg-success mr-1">
+                        {{article.design_grade}} <br>
+                        <span class="small">Design</span>
+                    </span>
+                    <span class=" badge back-tr color-primary outline-primary">
+                        <span class="h4">
+                            {{article.average_grade}}
+                            &Star;
+                        </span>
+                    </span>
+                    <a href="{% url 'article' article.id %}" class="btn btn-sm back-primary mx-1">View</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% empty %}
+<div class="col-sm-8 col-md-6 col-lg-4 view p-2">
+    <h2>Nothing articles to show</h2>
+</div>
+{% endfor %}

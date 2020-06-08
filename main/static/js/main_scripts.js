@@ -1,3 +1,6 @@
+
+
+
 function previewFile() {
   const file = document.querySelector('input[type=file]').files[0];
   const reader = new FileReader();
@@ -56,11 +59,23 @@ $(document).ready(function () {
 
 
   $('.data-item').each(function (item) {
-    width = parseFloat($(this).attr('data-width')* 10 )
+    width = parseFloat($(this).attr('data-width') * 10)
     $(this).css({
-      'transition':'1s',
-      'width':`${width}%`
+      'transition': '1s',
+      'width': `${width}%`
     })
 
   })
+
+
+
+  var prevScrollpos = window.pageYOffset;
+  window.onscroll = function () {
+    var currentScrollPos = window.pageYOffset - 150;
+    if (prevScrollpos > currentScrollPos) {
+      $("#info_bar").css({'transition':"2s","top":"0" })
+    } else {
+      $("#info_bar").css({'transition':"1s","top":"-500px" })
+    }
+  }
 })

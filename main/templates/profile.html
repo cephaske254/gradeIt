@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row align-items-center sticky-top justify-content-center back_body rounded" style="height: 200px; z-index: 1 !important;" id="info_bar">
+        <div class="col text-right">
+            <div class="first_last d-flex flex-column h5 text-uppercase">
+                <p>{{user.first_name}} {{user.last_name}}</p>
+            </div>
+            <div class="first_last text-right d-flex flex-column justify-content-center">
+                <p>
+                    <i class="fas fa-at"></i> {{user.username}}
+                </p>
+            </div>
+            <div class="location text-right d-flex flex-column justify-content-center">
+                <p>
+                    <i class="fas fa-map-marker-alt"></i> {{user.profile.first.country.name}}({{user.profile.first.country.code}})
+                </p>
+            </div>
+            <div class="location text-right d-flex flex-column justify-content-center">
+                <p>
+                    <i class="fas fa-phone-alt"></i> {{user.profile.first.phone}}
+                </p>
+            </div>
+        </div>
+        <div class="col d-flex justify-content-center">
+            <img src="{{user.profile.first.photo.url}}" alt="" class="d-inline img-thumbnail" style="max-height: 180px;">
+        </div>
+        <div class="col text-left">
+            <div class="bio d-flex flex-column">
+                <p class="text-uppercase m-0 h5">BIO</p>
+                <p>{{user.profile.first.bio}}</p>
+            </div>
+            <div class="posts d-flex flex-column">
+                <p>{{user.articles.all | length}} Post(s) Made</p>
+            </div>
+            <div class="posts d-flex flex-column">
+                <p class="text-uppercase m-0 h5">MEMBER SINCE</p>
+                <p>{{user.date_joined |date:'d M, Y'}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="row no-gutters justify-content-center align-items-center">
+        {% include 'includes/profile_article_cards.html' %}
+    </div>
+</div>
+
+
+{% endblock %}
