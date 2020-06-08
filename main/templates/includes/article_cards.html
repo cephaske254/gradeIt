@@ -5,23 +5,27 @@
 <div class="col-sm-8 col-md-6 col-lg-4 view p-2">
     <div class="card w-100">
         <div class="view-card">
-            <img src="https://html.com/wp-content/uploads/flamingo-fallback.jpg" class="card-img-top">
+            <img src="{{article.image.url}}" class="card-img-top">
             <div class="view-controls top-0 position-absolute d-flex w-100 py-2">
                 <div class="col">
-                    <a href="#" class="btn rounded-40 outline-primary">
+                    {% if request.user.is_authenticated %}
+                    <a href="#" class="btn rounded-40 outline-primary dark-tr">
                         <span class="small text-light">COLLECT
                             <i class="fas fa-sm fa-tag"></i>
                         </span>
                     </a>
+                    {% endif %}
                 </div>
                 <div class="col">
+                    {% if request.user.is_authenticated %}
                     <a href="#" class="btn rounded-40 back-primary"><span class="small">GRADE IT
                             <i class="fas fa-sm fa-star"></i>
                         </span>
                     </a>
+                    {% endif %}
                 </div>
                 <div class="col">
-                    <a href="{{article.link}}" target="_blank" class="btn rounded-40 outline-primary"><span class="small text-light">VIEW SITE
+                    <a href="{{article.link}}" target="_blank" class="btn rounded-40 outline-primary dark-tr"><span class="small text-light">VIEW SITE
                             <i class="fas fa-sm fa-external-link-alt"></i>
                         </span>
                     </a>
