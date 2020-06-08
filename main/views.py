@@ -1,10 +1,22 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from .forms import NewArticleForm, ArticleRatingForm
-from .models import Article
+from .models import Article, Rating
 # Create your views here.
 def home(request):
     articles = Article.get_all_articles()
-    rating_form = ArticleRatingForm
+    rating_form = ArticleRatingForm()
+    if request.method == 'POST':
+        rating_form = ArticleRatingForm(request.POST)
+        if rating_form.is_valid():
+            article = Article.get_article(rating_form.cleaned_data['article'])
+            design = rating_form.cleaned_data['design']
+            usability = rating_form.cleaned_data['usability']
+            content = rating_form.cleaned_data['content']
+            Rating.save_rating(request.user,article, design,usability,content)
+            if (request.META['HTTP_REFERER']):
+                return redirect(request.META['HTTP_REFERER'])
+            return redirect('home')
+
     context = {
         'title':'Home | GradeIt',
         'articles':articles,

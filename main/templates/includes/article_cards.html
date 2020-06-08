@@ -4,24 +4,24 @@
 
 <div class="col-sm-8 col-md-6 col-lg-4 view p-2">
     <div class="card w-100">
-        <div class="view-card" data-json="{{article.article_data |safe}}">
+        <div class="view-card" id="id_{{article.id}}" data-json='{{article.article_data |safe}}'>
             <img src="{{article.image.url}}" class="card-img-top">
             <div class="view-controls top-0 position-absolute d-flex w-100 py-2">
                 <div class="col">
                     {% if request.user.is_authenticated %}
-                    <a href="#" class="btn rounded-40 outline-primary dark-tr">
+                    <button class="btn rounded-40 outline-primary dark-tr collect" data-target='#id_{{article.id}}'>
                         <span class="small text-light">COLLECT
                             <i class="fas fa-sm fa-tag"></i>
                         </span>
-                    </a>
+                    </button>
                     {% endif %}
                 </div>
                 <div class="col">
                     {% if request.user.is_authenticated %}
-                    <a href="#" class="btn rounded-40 back-primary"><span class="small">GRADE IT
+                    <button class="btn rounded-40 back-primary grade_it" data-target='#id_{{article.id}}'><span class="small">GRADE IT
                             <i class="fas fa-sm fa-star"></i>
                         </span>
-                    </a>
+                    </button>
                     {% endif %}
                 </div>
                 <div class="col">
@@ -37,6 +37,7 @@
             <div class="card-subtitle px-3 py-1 d-flex">
                 <p class="col small m-0">From {{article.user.profile.first.country.name}}({{article.user.profile.first.country.code}})</p>
                 <p class="col small m-0">{{ article.date | date:'d M, Y' }}</p>
+                <button class="btn btn-sm back-primary">View</button>
                 </p>
             </div>
             <hr class="m-1">

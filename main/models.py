@@ -59,29 +59,26 @@ class Article(models.Model):
 
     @property
     def article_data(self):
-        return (serializers.serialize('json', [self])).strip('[]')
+        data = (serializers.serialize('json', [self]).strip('[]'))
+        return data
+
     
     def __str__(self):
         return self.title
     @property
     def design_grade(self):
-        default=[0]
         ratings = Rating.get_article_rating_by_field(self, 'design')
-        if not ratings:ratings=default
-        return round(statistics.mean(ratings), 1)
+        return statistics.mean(ratings)
         
     @property
     def usability_grade(self):
-        default=[0]
         ratings = Rating.get_article_rating_by_field(self, 'usability')
-        if not ratings:ratings=default
-        return round(statistics.mean(ratings), 1)
+        return statistics.mean(ratings)
+
     @property
     def content_grade(self):
-        default=[0]
         ratings = Rating.get_article_rating_by_field(self, 'content')
-        if not ratings:ratings=default
-        return round(statistics.mean(ratings), 1)
+        return statistics.mean(ratings)
     @property
     def average_grade(self):
         average = statistics.mean([self.content_grade, self.usability_grade, self.design_grade])
@@ -120,11 +117,13 @@ class Article(models.Model):
 class Rating(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='rating')
-    design = models.PositiveIntegerField(default=0)
-    usability = models.PositiveIntegerField(default=0 )
-    content = models.PositiveIntegerField(default=0)
+    design = models.FloatField(default=0)
+    usability = models.FloatField(default=0 )
+    content = models.FloatField(default=0)
     date = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f'{self.user.username} rated {self.article.user.username}\'s article - {self.article.description}'
     @property
     def average(self):
         return round(statistics.mean([self.content,self.usability,self.design]), 1)
@@ -132,8 +131,9 @@ class Rating(models.Model):
 
     @classmethod
     def save_rating(cls, user, article, design, usability, content):
-        rating = Rating(user=user, article=article, design=design, usability=usability, content=content)
+        rating = cls(user=user, article=article, design=design, usability=usability, content=content)
         rating.save()
+        print(user)
         return rating
 
     @classmethod
@@ -141,7 +141,12 @@ class Rating(models.Model):
         return cls.objects.filter(article=article.id).all()
     @classmethod
     def get_article_rating_by_field(cls, article, field):
-        return cls.objects.filter(article=article.id).values_list(field).all()
+        item_list = []
+        items = cls.objects.filter(article=article.id).values_list(field, flat=True).all()
+        if not items : items=[0]
+        for item_ in items :
+            item_list.append(item_)
+        return item_list
 
     @classmethod
     def get_ratings_by_user(cls, user):

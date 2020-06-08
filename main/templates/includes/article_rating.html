@@ -1,5 +1,41 @@
-<div class="container-flud">
-    <div class="row position-fixed miv-vh-100">
-        
+{% if request.user.is_authenticated %}
+<div class="container-fluid article_rating_cont min-vh-100 fixed-top ">
+    <div class="row min-vh-100 align-items-center justify-content-center article_rating">
+        <div class="col d-none d-md-flex display_image min-vh-100"></div>
+        <div class="col-sm-8 col-md-6 p-3">
+            <form action="" method="POST" class="form-horizontal">
+                article
+                <input type="number" class="back-tr" name="article" readonly>
+                {% csrf_token %}
+                <div class="form-group">
+                    {{rating_form.usability.label}}
+                    {{rating_form.usability}}
+                    <p class="bg-danger badge">
+                        <span class="display h5">0.00</span>
+                        <span class="h4">&Star;&Star;</span>
+                    </p>
+                </div>
+                <div class="form-group">
+                    {{rating_form.design.label}}
+                    {{rating_form.design}}
+                    <p class="bg-success badge">
+                        <span class="display h5">0.00</span>
+                        <span class="h4">&Star;&Star;</span>
+                    </p>
+                </div>
+                <div class="form-group">
+                    {{rating_form.content.label}}
+                    {{rating_form.content}}
+                    <p class="bg-primary badge">
+                        <span class="display h5">0.00</span>
+                        <span class="h4">&Star;&Star;</span>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <button type="text" class="btn back-primary" style="height: 60px !important; width: 100%;">SUBMIT MY GRADE</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
+{% endif %}
