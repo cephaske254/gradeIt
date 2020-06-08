@@ -3,7 +3,7 @@
     <div class="row min-vh-100 align-items-center justify-content-center article_rating">
         <div class="col d-none d-md-flex display_image min-vh-100"></div>
         <div class="col-sm-8 col-md-6 p-3">
-            <form action="" method="POST" class="form-horizontal">
+            <form action="{% url 'home' %}" method="POST" class="form-horizontal">
                 article
                 <input type="number" class="back-tr" name="article" readonly>
                 {% csrf_token %}

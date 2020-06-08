@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'includes/article_rating.html' %}
+<div class="container">
+    <div class="row no-gutters justify-content-center">
+        <div class="col-sm-10 col-md-7 col-lg-6 p-1">
+            <div class="card">
+                <img src="{{article.image.url}}" class="card-img-top">
+            </div>
+        </div>
+        <div class="col-sm-10 col-md-5 col-lg-6 p-1">
+            <div class="card back-dark">
+                <div class="data py-2 p-0">
+                    <span class="label">USABILITY</span>
+                    <div class="data-block outline-primary w-100">
+                        <span class="integer float-right h2">{{article.usability_grade}}/10</span>
+                        <div class="data-item back-primary" data-width="{{article.usability_grade}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="data py-2 p-0">
+                    <span class="label">DESIGN</span>
+                    <div class="data-block outline-primary w-100">
+                        <span class="integer float-right h2">{{article.design_grade}}/10</span>
+                        <div class="data-item back-primary" data-width="{{article.design_grade}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="data py-2 p-0">
+                    <span class="label">CONTENT</span>
+                    <div class="data-block outline-primary w-100">
+                        <span class="integer float-right h2">{{article.content_grade}}/10</span>
+                        <div class="data-item back-primary" data-width="{{article.content_grade}}">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .data-item {
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+{% endblock %}

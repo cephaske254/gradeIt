@@ -42,6 +42,15 @@ def new_article(request):
         'form':form
     }
     return render(request,'new_article.html', context)
+
+def single_article(request, id):
+    article = Article.get_article(id)
+    context = {
+        'article':article
+    }
+    return render(request,'single_article.html', context)
+
+
 def profile(request, username):
     context={}
     return HttpResponse("hello")

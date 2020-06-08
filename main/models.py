@@ -68,17 +68,17 @@ class Article(models.Model):
     @property
     def design_grade(self):
         ratings = Rating.get_article_rating_by_field(self, 'design')
-        return statistics.mean(ratings)
+        return round(statistics.mean(ratings),1)
         
     @property
     def usability_grade(self):
         ratings = Rating.get_article_rating_by_field(self, 'usability')
-        return statistics.mean(ratings)
+        return round(statistics.mean(ratings),1)
 
     @property
     def content_grade(self):
         ratings = Rating.get_article_rating_by_field(self, 'content')
-        return statistics.mean(ratings)
+        return round(statistics.mean(ratings),1)
     @property
     def average_grade(self):
         average = statistics.mean([self.content_grade, self.usability_grade, self.design_grade])
