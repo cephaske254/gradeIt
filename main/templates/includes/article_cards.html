@@ -4,7 +4,7 @@
 
 <div class="col-sm-8 col-md-6 col-lg-4 view p-2">
     <div class="card w-100">
-        <div class="view-card">
+        <div class="view-card" data-json="{{article.article_data |safe}}">
             <img src="{{article.image.url}}" class="card-img-top">
             <div class="view-controls top-0 position-absolute d-flex w-100 py-2">
                 <div class="col">
@@ -45,6 +45,26 @@
                 <div class="profile-info px-3 small">
                     BY <a href="{% url 'profile' article.user.username %}" class="card-link text-light text-uppercase">{{ article.user.first_name }} {{ article.user.last_name }}</a>
                 </div>
+                <div class="ratings d-flex align-items-center">
+                    <span class="badge bg-danger mr-1">
+                        {{article.usability_grade}} <br>
+                        <span class="small">Usability</span>
+                    </span>
+                    <span class="badge bg-success mr-1">
+                        {{article.design_grade}} <br>
+                        <span class="small">Design</span>
+                    </span>
+                    <span class="badge bg-primary mr-1">
+                        {{article.content_grade}} <br>
+                        <span class="small">Content</span>
+                    </span>
+                    <span class=" badge back-tr color-primary outline-primary">
+                        <span class="h4">
+                            {{article.average_grade}} 
+                            &Star;
+                        </span>
+                    </span>
+                </div>
             </div>
         </div>
     </div>
@@ -54,4 +74,3 @@
     <h2>OOPS! Nothing to show</h2>
 </div>
 {% endfor %}
-

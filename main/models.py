@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Q
 import statistics
+from django.http import JsonResponse
+from django.core import serializers
 from django_countries.fields import CountryField
 # Create your models here.
 
@@ -54,22 +56,36 @@ class Article(models.Model):
     description = models.TextField()
     publish = models.BooleanField(default=True)
     date = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def article_data(self):
+        return (serializers.serialize('json', [self])).strip('[]')
     
     def __str__(self):
         return self.title
     @property
     def design_grade(self):
-        pass
+        default=[0]
+        ratings = Rating.get_article_rating_by_field(self, 'design')
+        if not ratings:ratings=default
+        return round(statistics.mean(ratings), 1)
+        
     @property
     def usability_grade(self):
-        pass
+        default=[0]
+        ratings = Rating.get_article_rating_by_field(self, 'usability')
+        if not ratings:ratings=default
+        return round(statistics.mean(ratings), 1)
     @property
     def content_grade(self):
-        pass
+        default=[0]
+        ratings = Rating.get_article_rating_by_field(self, 'content')
+        if not ratings:ratings=default
+        return round(statistics.mean(ratings), 1)
     @property
     def average_grade(self):
-        pass
-
+        average = statistics.mean([self.content_grade, self.usability_grade, self.design_grade])
+        return round(average, 1)
 
     @classmethod
     def get_all_articles(cls):
@@ -123,6 +139,9 @@ class Rating(models.Model):
     @classmethod
     def get_article_ratings(cls, article):
         return cls.objects.filter(article=article.id).all()
+    @classmethod
+    def get_article_rating_by_field(cls, article, field):
+        return cls.objects.filter(article=article.id).values_list(field).all()
 
     @classmethod
     def get_ratings_by_user(cls, user):

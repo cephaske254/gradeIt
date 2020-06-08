@@ -1,12 +1,14 @@
 from django.shortcuts import render, HttpResponse
-from .forms import NewArticleForm
+from .forms import NewArticleForm, ArticleRatingForm
 from .models import Article
 # Create your views here.
 def home(request):
     articles = Article.get_all_articles()
+    rating_form = ArticleRatingForm
     context = {
         'title':'Home | GradeIt',
-        'articles':articles
+        'articles':articles,
+        'rating_form':rating_form
     }
     return render(request,'home.html', context)
 
