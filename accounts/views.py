@@ -5,7 +5,7 @@ from .decorators import profile_required
 from .forms import UpdateUserForm, UserProfileForm
 from main.models import Profile, User
 # Create your views here.
-@profile_required
+
 def register(request):
     form = UserCreationForm()
     if request.method == 'POST':
@@ -20,7 +20,6 @@ def register(request):
     return render(request,'accounts/register.html',context)
 
 @login_required
-@profile_required
 def finalize(request):
     current_user = request.user
     update_user = UpdateUserForm()

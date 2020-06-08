@@ -36,20 +36,31 @@ $(document).ready(function () {
     target = $($(this).attr('data-target'))
     json_data = JSON.parse(target.attr('data-json'))
     article_id = json_data['pk']
-    image_url = '/media/'+json_data['fields']['image']
+    image_url = '/media/' + json_data['fields']['image']
 
     $('.display_image').css({
-      'background':`url(${image_url})`,
-      'background-size':'cover',
-      'background-position':'center',
-      'background-repeat':'no-repeat',
-      'border-radius':'10px'
-      })
+      'background': `url(${image_url})`,
+      'background-size': 'cover',
+      'background-position': 'center',
+      'background-repeat': 'no-repeat',
+      'border-radius': '10px'
+    })
 
-    
+
     $('.article_rating_cont form input[name=article]').val(article_id)
     setTimeout(() => {
       $('.article_rating_cont').slideDown()
     }, 200);
+  })
+
+
+
+  $('.data-item').each(function (item) {
+    width = parseFloat($(this).attr('data-width')* 10 )
+    $(this).css({
+      'transition':'1s',
+      'width':`${width}%`
+    })
+
   })
 })

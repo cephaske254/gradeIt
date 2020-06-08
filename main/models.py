@@ -12,7 +12,7 @@ class Profile(models.Model):
     bio = models.TextField(null=True)
     phone = models.IntegerField(unique=True, null=True)
     photo = models.ImageField(upload_to='profiles',null=False)
-    country = CountryField(blank_label='select country')
+    country = CountryField(blank_label='select country', null=False)
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -23,8 +23,8 @@ class Profile(models.Model):
         return cls.objects.all()
 
     @classmethod
-    def save_profile(cls, user, bio, phone, photo):
-        profile = cls(user=user, bio=bio, phone=phone, photo=photo)
+    def save_profile(cls, user, bio, phone,country, photo):
+        profile = cls(user=user, bio=bio, phone=phone, photo=photo, country=country)
         profile.save()
         return profile
 

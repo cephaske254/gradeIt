@@ -2,6 +2,10 @@ from django.shortcuts import render, HttpResponse, redirect
 from .forms import NewArticleForm, ArticleRatingForm
 from .models import Article, Rating
 # Create your views here.
+from accounts.decorators import profile_required
+from django.contrib.auth.decorators import login_required
+
+@profile_required
 def home(request):
     articles = Article.get_all_articles()
     rating_form = ArticleRatingForm()
@@ -24,6 +28,8 @@ def home(request):
     }
     return render(request,'home.html', context)
 
+@login_required
+@profile_required
 def new_article(request):
     form = NewArticleForm()
     user = request.user
@@ -43,6 +49,8 @@ def new_article(request):
     }
     return render(request,'new_article.html', context)
 
+@login_required
+@profile_required
 def single_article(request, id):
     article = Article.get_article(id)
     context = {
@@ -51,6 +59,7 @@ def single_article(request, id):
     return render(request,'single_article.html', context)
 
 
+@profile_required
 def profile(request, username):
     context={}
     return HttpResponse("hello")

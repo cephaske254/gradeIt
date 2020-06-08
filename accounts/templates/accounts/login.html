@@ -16,6 +16,7 @@
     <input type="password" name="{{form.password.name}}" id="id_{{form.password.name}}" class="text-input" placeholder="Password" required>
     {{ form.password1.errors }}
 </div>
+<input type="hidden" name="next" value="{{next}}">
 <div class="form-group">
     <button type="submit" class="text-input back-primary font-weight-bold">SIGNIN NOW</button>
 </div>

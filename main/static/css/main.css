@@ -54,5 +54,14 @@ input::-webkit-slider-thumb,input::-moz-range-thumb ,input::-ms-thumb {
     background-color: rgba(0, 0, 0, 0.829) !important;
 
 }
-/* .article_rating {
-} */
+.integer{
+    position: absolute;
+    padding: 2px;
+    text-shadow: 2px 1px 1px rgb(0, 0, 0);
+}
+.data-item {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
