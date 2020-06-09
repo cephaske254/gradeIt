@@ -1,1 +1,1 @@
-web: gunicorn rateit.wsgi
+web: gunicorn rateIt.wsgi
