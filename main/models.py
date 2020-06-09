@@ -170,13 +170,22 @@ class SavedArticle(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='saved_aricles')
     article = models.ForeignKey(Article, on_delete=models.DO_NOTHING)
     date = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.user.username
 
+    @classmethod
+    def get_collections(cls, user):
+        list_ = []
+        saved = cls.objects.filter(user=user.id).all()
+        for one in saved:
+            list_.append(one.article)
+        return list_
     @classmethod
     def save_unsave_article(cls, user, article):
         try:
             cls.objects.filter(user=user.id, article=article.id).first().delete()
-            return 'Removed'
+            return 'Removed from collection refresh needed to effect changes'
         except:
             cls(user=user, article=article).save()
-            return 'Saved'
+            return 'Added to collection refresh needed to effect changes'
 

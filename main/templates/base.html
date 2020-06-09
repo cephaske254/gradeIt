@@ -22,22 +22,26 @@
 </head>
 
 {% block body_tag %}
+
 <body>
-{% endblock %}
+    {% endblock %}
     {% block navbar %}
-        {% include 'includes/navbar.html' %}
+    {% include 'includes/navbar.html' %}
+
     {% endblock %}
 
     {% block content %}
 
     {% endblock %}
-
+    <div class="row snack_cont">
+        <div id="snackbar">Some text some message..</div>
+    </div>
     {% block scripts %}
-        <script src="{% static 'js/jquery-3.5.0.min.js' %}"></script>
-        <script src="{% static 'js/bootstrap.min.js' %}"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.min.js"></script>
-        <script src="{% static 'js/scripts.js' %}"></script>
-        <script src="{% static 'js/main_scripts.js' %}"></script>
+    <script src="{% static 'js/jquery-3.5.0.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.min.js"></script>
+    <script src="{% static 'js/scripts.js' %}"></script>
+    <script src="{% static 'js/main_scripts.js' %}"></script>
     {% endblock %}
 </body>
 

@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect, Http404
 from .forms import NewArticleForm, ArticleRatingForm
-from .models import Article, Rating, User
+from .models import Article, Rating, User, SavedArticle
 # Create your views here.
 from accounts.decorators import profile_required
 from django.contrib.auth.decorators import login_required
@@ -57,10 +57,22 @@ def single_article(request, id):
     article = Article.get_article(id)
     context = {
         'article':article,
+        'title': f'{article.title} | GradeIt',
         'rating_form':rating_form,
     }
     return render(request,'single_article.html', context)
 
+@login_required
+@profile_required
+def collections(request):
+    articles = SavedArticle.get_collections(request.user)
+    rating_form = ArticleRatingForm()
+    context = {
+        'title':'My Collections | GradeIt',
+        'articles':articles,
+        'rating_form':rating_form
+    }
+    return render(request,'home.html', context)
 
 @profile_required
 def profile(request, username):
@@ -71,3 +83,8 @@ def profile(request, username):
         'user':user
         }
     return render(request,"profile.html", context)
+
+def saved_article(request, id):
+    article = Article.get_article(id)
+    response = SavedArticle.save_unsave_article(request.user,article)
+    return HttpResponse(response)

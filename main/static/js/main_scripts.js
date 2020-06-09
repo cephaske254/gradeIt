@@ -1,6 +1,4 @@
 
-
-
 function previewFile() {
   const file = document.querySelector('input[type=file]').files[0];
   const reader = new FileReader();
@@ -18,6 +16,13 @@ function previewFile() {
 
 $(document).ready(function () {
 
+  var showToast = function () {
+    toast = $('#snackbar')
+    toast.addClass('show')
+    setTimeout(() => {
+      toast.removeClass('show')
+    }, 3000);
+  }
   $('input[name=image][type=file]').on('change', function () {
     previewFile()
   })
@@ -35,6 +40,24 @@ $(document).ready(function () {
     console.log(display)
   })
 
+  $('button.collect').click(function () {
+    target = $($(this).attr('data-target'))
+    json_data = JSON.parse(target.attr('data-json'))
+    article_id = json_data['pk']
+    // alert(csrftoken)
+
+    $.ajax({
+      url: `/collect/${article_id}`,
+      success: function (data) {
+        $('.snack_cont').html(`
+          <div id="snackbar" class="border border-light font-weight-bold">${data}</div>
+        `)
+        showToast()
+        console.log(data)
+      }
+    })
+
+  })
   $('.grade_it').click(function () {
     target = $($(this).attr('data-target'))
     json_data = JSON.parse(target.attr('data-json'))
@@ -49,14 +72,12 @@ $(document).ready(function () {
       'border-radius': '10px'
     })
 
-  
-
     $('.article_rating_cont form input[name=article]').val(article_id)
     setTimeout(() => {
       $('.article_rating_cont').slideDown()
     }, 200);
 
-    $('.hide_form').click(function(){
+    $('.hide_form').click(function () {
       $('.article_rating_cont').slideUp()
     })
   })
@@ -71,15 +92,13 @@ $(document).ready(function () {
 
   })
 
-
-
   var prevScrollpos = window.pageYOffset;
   window.onscroll = function () {
     var currentScrollPos = window.pageYOffset - 150;
     if (prevScrollpos > currentScrollPos) {
-      $("#info_bar").css({'transition':"2s","top":"0" })
+      $("#info_bar").css({ 'transition': "2s", "top": "0" })
     } else {
-      $("#info_bar").css({'transition':"1s","top":"-500px" })
+      $("#info_bar").css({ 'transition': "1s", "top": "-500px" })
     }
   }
 

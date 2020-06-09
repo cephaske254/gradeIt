@@ -9,7 +9,10 @@
             </li>
         {% if request.user.is_authenticated %}
             <li class="nav-item">
-                <a href="{% url 'new_article' %}" class="nav-link">NEW</a>
+                <a href="{% url 'new_article' %}" class="nav-link">NEW ARTICLE</a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'collections' %}" class="nav-link">MY COLLECTION</a>
             </li>
         {% endif %}
     </ul>

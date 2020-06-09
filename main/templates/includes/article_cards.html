@@ -7,7 +7,7 @@
             <div class="view-controls top-0 position-absolute d-flex w-100 py-2">
                 <div class="col">
                     {% if request.user.is_authenticated %}
-                    <button class="btn rounded-40 outline-primary dark-tr collect" data-target='#id_{{article.id}}'>
+                    <button class="collect btn rounded-40 outline-primary dark-tr"  data-target='#id_{{article.id}}'>
                         <span class="small text-light">COLLECT
                             <i class="fas fa-sm fa-tag"></i>
                         </span>
