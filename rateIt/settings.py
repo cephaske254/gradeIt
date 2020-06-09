@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_countries',
     'rest_framework.authtoken',
+    'api.apps.ApiConfig',
     'accounts.apps.AccountsConfig',
     'main.apps.MainConfig',
     'django.contrib.admin',
@@ -36,7 +37,11 @@ INSTALLED_APPS = [
 ]
 REST_FRAMEWORK ={
     'DEFAULT_AUTHENTICATION_CLASSES':(
-        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+
+    'DEFAULT_PERMISSION_CLASSES':(
+        'rest_framework.permissions.AllowAny',
     )
 }
 

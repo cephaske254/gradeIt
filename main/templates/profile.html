@@ -5,11 +5,11 @@
     <div class="row align-items-center sticky-top justify-content-center back_body rounded" style="height: 200px; z-index: 1 !important;" id="info_bar">
         <div class="col text-right">
             <div class="first_last d-flex flex-column h5 text-uppercase">
-                <p>{{user.first_name}} {{user.last_name}}</p>
+                <p>{{user.first_name}} {{user.last_name}}({{user.username}})</p>
             </div>
             <div class="first_last text-right d-flex flex-column justify-content-center">
                 <p>
-                    <i class="fas fa-at"></i> {{user.username}}
+                    <i class="fas fa-envelope"></i> {{user.email}}
                 </p>
             </div>
             <div class="location text-right d-flex flex-column justify-content-center">

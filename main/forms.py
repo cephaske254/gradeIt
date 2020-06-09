@@ -7,7 +7,7 @@ class NewArticleForm(forms.ModelForm):
         exclude=['user']
 
 class ArticleRatingForm(forms.Form):
-    usability = forms.CharField(widget=forms.NumberInput({'type':'range', 'max':10, 'step':0.1}))
-    design = forms.CharField(widget=forms.NumberInput({'type':'range', 'max':10, 'step':0.1}))
-    content = forms.CharField(widget=forms.NumberInput({'type':'range', 'max':10, 'step':0.1}))
-    article = forms.IntegerField()
+    usability = forms.CharField(widget=forms.NumberInput({'type':'range', 'max':10, 'value':'0', 'required':True, 'step':0.1}))
+    design = forms.CharField(widget=forms.NumberInput({'type':'range', 'max':10, 'value':'0', 'required':True, 'step':0.1}))
+    content = forms.CharField(widget=forms.NumberInput({'type':'range', 'max':10, 'value':'0', 'required':True, 'step':0.1}))
+    article = forms.CharField(widget=forms.NumberInput({'type':'range',}))
