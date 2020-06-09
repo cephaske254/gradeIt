@@ -46,16 +46,18 @@ def new_article(request):
 
     context = {
         'title':'New Article | GradeIt',
-        'form':form
+        'form':form,
     }
     return render(request,'new_article.html', context)
 
 @login_required
 @profile_required
 def single_article(request, id):
+    rating_form = ArticleRatingForm()
     article = Article.get_article(id)
     context = {
-        'article':article
+        'article':article,
+        'rating_form':rating_form,
     }
     return render(request,'single_article.html', context)
 

@@ -1,11 +1,14 @@
 {% if request.user.is_authenticated %}
+
 <div class="container-fluid article_rating_cont min-vh-100 fixed-top ">
     <div class="row min-vh-100 align-items-center justify-content-center article_rating">
         <div class="col d-none d-md-flex display_image min-vh-100"></div>
         <div class="col-sm-8 col-md-6 p-3">
+            <button class="btn btn-sm btn-danger float-right hide_form">&times;</button>
             <form action="{% url 'home' %}" method="POST" class="form-horizontal">
-                article
-                <input type="number" class="back-tr" name="article" readonly>
+                <h3>GradeIt</h3>
+                <hr class="bg-light">
+                <input type="hidden" class="back-tr" name="article" readonly>
                 {% csrf_token %}
                 <div class="form-group">
                     {{rating_form.usability.label}}

@@ -49,13 +49,17 @@ $(document).ready(function () {
       'border-radius': '10px'
     })
 
+  
 
     $('.article_rating_cont form input[name=article]').val(article_id)
     setTimeout(() => {
       $('.article_rating_cont').slideDown()
     }, 200);
-  })
 
+    $('.hide_form').click(function(){
+      $('.article_rating_cont').slideUp()
+    })
+  })
 
 
   $('.data-item').each(function (item) {
@@ -78,4 +82,5 @@ $(document).ready(function () {
       $("#info_bar").css({'transition':"1s","top":"-500px" })
     }
   }
+
 })
