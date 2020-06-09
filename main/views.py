@@ -40,7 +40,8 @@ def new_article(request):
             link = form.cleaned_data['link']
             description = form.cleaned_data['description']
             image = form.cleaned_data['image']
-            Article.save_article(user,title, link,description, image,publish=True)
+            data = Article.save_article(user,title, link,description, image,publish=True)
+            return redirect('article', data.id)
             
 
     context = {
