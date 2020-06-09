@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-fluid">
+    <h4>Found {{ articles | length }} articles</h4>
+    <div class="row no-gutters justify-content-center align-items-center">
+        {% include 'includes/profile_article_cards.html' %}
+    </div>
+</div>
+{% endblock %}

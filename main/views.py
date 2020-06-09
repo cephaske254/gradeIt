@@ -77,13 +77,22 @@ def collections(request):
 @profile_required
 def profile(request, username):
     user = User.objects.filter(username=username).first()
+    articles = Article.objects.filter(user=user.id).all()
     if user is None: raise Http404()
     context={
         'title':f'{user.username.title()} | GradeIt',
-        'user':user
+        'user':user,
+        'articles':articles,
         }
     return render(request,"profile.html", context)
+def search(request):
+    if not request.GET['search']: return redirect('home')
 
+    articles = Article.search_articles(request.GET['search'])
+    context={
+        'articles':articles
+        }
+    return render(request, 'search.html', context)
 def saved_article(request, id):
     article = Article.get_article(id)
     response = SavedArticle.save_unsave_article(request.user,article)

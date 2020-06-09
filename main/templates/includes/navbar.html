@@ -7,15 +7,20 @@
             <li class="nav-item">
                 <a href="/" class="nav-link">HOME</a>
             </li>
-        {% if request.user.is_authenticated %}
+            {% if request.user.is_authenticated %}
             <li class="nav-item">
                 <a href="{% url 'new_article' %}" class="nav-link">NEW ARTICLE</a>
             </li>
             <li class="nav-item">
                 <a href="{% url 'collections' %}" class="nav-link">MY COLLECTION</a>
             </li>
-        {% endif %}
-    </ul>
+            {% endif %}
+        </ul>
+        <form action="{% url 'search' %}" class="form-inline">
+            <div class="form-group">
+                <input type="search" name="search" class="form-control form-control-sm text-light m-1 back-dark border-0" placeholder="Search...">
+            </div>
+        </form>
     </div>
     <ul class="nav navbar-right">
         {% if not request.user.is_authenticated %}

@@ -7,6 +7,7 @@ urlpatterns = [
     path('article/<int:id>', views.single_article, name='article'),
     path('collect/<int:id>', views.saved_article, name='collect'),
     path('collections/', views.collections, name='collections'),
+    path('search/', views.search, name='search'),
     path('<username>/', views.profile, name='profile'),
 
 ]
